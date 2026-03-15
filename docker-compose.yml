@@ -1,0 +1,10 @@
+services:
+  claude:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ${HOST_DIR:-.}:/workspace
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
