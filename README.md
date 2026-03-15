@@ -11,22 +11,15 @@ The container mounts the directory from which you launch it (or a directory you 
 ## Prerequisites
 
 - Docker and Docker Compose
-- An [Anthropic API key](https://console.anthropic.com)
+- An Anthropic account (free or paid) — authentication is done via browser on first run
 
 ## Setup
 
-1. Copy the example env file and add your API key:
+Build the image:
 
-   ```bash
-   cp .env.example .env
-   # edit .env and set ANTHROPIC_API_KEY
-   ```
-
-2. Build the image:
-
-   ```bash
-   docker compose build
-   ```
+```bash
+docker compose build
+```
 
 ## Usage
 
@@ -39,6 +32,8 @@ HOST_DIR=$(pwd) docker compose -f /path/to/this/repo/docker-compose.yml run --rm
 # Or copy the compose file into your project and run:
 docker compose run --rm claude
 ```
+
+On first run, Claude will open a browser window to authenticate with your Anthropic account. After that, credentials are persisted in a Docker named volume (`claude-config`) so you won't be prompted again.
 
 Pass a one-shot prompt directly:
 
@@ -59,9 +54,7 @@ HOST_DIR=/path/to/project docker compose run --rm claude
 ```
 .
 ├── Dockerfile          # Node 22 Alpine image with claude-code installed globally
-├── docker-compose.yml  # Mounts HOST_DIR and forwards ANTHROPIC_API_KEY
-├── .env.example        # Template for required environment variables
-├── .env                # Your local secrets (gitignored)
+├── docker-compose.yml  # Mounts HOST_DIR and persists Claude credentials via named volume
 ├── .gitignore
 └── .dockerignore
 ```
