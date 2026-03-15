@@ -1,10 +1,12 @@
 services:
   claude:
     build: .
-    env_file:
-      - .env
     volumes:
       - ${HOST_DIR:-.}:/workspace
+      - claude-config:/root/.claude
     working_dir: /workspace
     stdin_open: true
     tty: true
+
+volumes:
+  claude-config:
